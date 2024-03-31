@@ -1,0 +1,69 @@
+<div class="container">
+    <div class="include-house">
+        <mat-card class="example-card">
+            <mat-card-header>
+                <mat-card-title>Adicionar House</mat-card-title>
+                <!-- <mat-card-subtitle>add new house</mat-card-subtitle> -->
+            </mat-card-header>
+            <mat-card-content>
+                <form [formGroup]="formIncludeHouse">
+                    <p>
+                        <mat-form-field appearance="outline">
+                            <mat-label>Descrição</mat-label>
+                            <input matInput placeholder="Descrição" formControlName='description'>
+                            <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+                        </mat-form-field>
+                    </p>
+    
+                    <p>
+                        <mat-form-field appearance="outline">
+                            <mat-label>Preço</mat-label>
+                            <input matInput placeholder="Preço" formControlName='price'>
+                            <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+                            <!-- <mat-hint>Hint</mat-hint> -->
+                        </mat-form-field>
+                    </p>
+    
+                    <p>
+                        <mat-form-field appearance="outline">
+                            <mat-label>Locação</mat-label>
+                            <input matInput placeholder="Locação" formControlName='location'>
+                            <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+                            <!-- <mat-hint>Hint</mat-hint> -->
+                        </mat-form-field>
+                    </p>
+    
+                    <p>
+                        <button type="button" mat-button (click)="fileInput.click()">Adicionar Imagem</button>
+                        <input hidden (change)="onFileSelected($event)" #fileInput type="file" accept=".jpg,.png">
+                        <span class="file-name">{{selectedFile?.name}}</span>
+                    </p>
+    
+                </form>
+            </mat-card-content>
+            <mat-card-actions>
+                <button mat-raised-button (click)="addHouse()">Cadastrar House</button>
+            </mat-card-actions>
+        </mat-card>
+    
+    </div>
+    <div class="dashboard">
+        <mat-card class="example-card" *ngFor="let house of houses">
+            <mat-card-header>
+                <div mat-card-avatar class="example-header-image"></div>
+                <mat-card-title>{{house.description}}</mat-card-title>
+                <mat-card-subtitle>{{house.location}}</mat-card-subtitle>
+            </mat-card-header>
+            <img mat-card-image src="{{house.thumbnail_url}}">
+            <mat-card-content>
+                 <p>
+                    <strong>preço:</strong> {{house.price}}
+                 </p>
+            </mat-card-content>
+            <mat-card-actions>
+                <button mat-raised-button>Editar</button>
+            </mat-card-actions>
+        </mat-card>
+    </div>
+    
+</div>
