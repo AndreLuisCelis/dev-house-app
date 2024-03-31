@@ -1,0 +1,42 @@
+version: '3.7'
+
+services:
+  front-dev-house:
+    build:
+      context: ./front-dev-house/dev-house
+      dockerfile: Dockerfile
+    ports:
+      - "4000:4000"
+    depends_on:
+      - api-dev-house
+    networks:
+      - app-network
+
+  api-dev-house:
+    build:
+      context: ./api-Dev-House
+      dockerfile: Dockerfile
+    ports:
+      - "3333:3333"
+    depends_on:
+      - mongodb
+    networks:
+      - app-network
+
+  mongodb:
+    image: mongo
+    container_name: "mongo"
+    restart: always
+    ports:
+      - "27017:27017"
+    volumes:
+      - db:/data/db
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  db:
