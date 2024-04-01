@@ -4,7 +4,7 @@ FROM node:latest
 # Define o diretório de trabalho dentro do contêiner
 WORKDIR /user
 
-VOLUME  /user
+VOLUME  /user/uploads
 
 # Copia os arquivos package.json e package-lock.json para o diretório de trabalho
 COPY package*.json ./
