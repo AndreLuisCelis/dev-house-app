@@ -12,7 +12,7 @@ class HouseController{
   }
 
   async store(req, res){
-    const { filename } = req.file;
+    const { filename } = req.file??'';
     const { description, price, location, status } = req.body;
     const { user_id } = req.headers;
     console.log({ description, price, location, status } )
@@ -30,7 +30,7 @@ class HouseController{
   }
 
   async update(req, res){
-    const { filename } = req.file;
+    const { filename } = req.file??'';
     const { house_id } = req.params;
     const { description, price, location, status } = req.body;
     const { user_id } = req.headers;
@@ -43,7 +43,7 @@ class HouseController{
       return res.status(401).json({ error: 'Não autorizado.'});
     }
 
-    await House.updateOne({ _id: house_id  }, {
+     await House.updateOne({ _id: house_id  }, {
       user: user_id,
       thumbnail: filename,
       description,
@@ -52,8 +52,8 @@ class HouseController{
       status,
     });
     
-    
-    return res.send();
+    const updatedHouse = await House.findById(house_id);
+    return res.send(updatedHouse);
   }
 
   async destroy(req, res){

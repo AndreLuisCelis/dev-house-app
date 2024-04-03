@@ -1,0 +1,20 @@
+<mat-toolbar color="primary">
+    <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <span>Dev House</span>
+    <span class="example-spacer"></span>
+    <!-- NOVA SINTAXE DAS DIRETIVAS ESTRUTURAIS ANGULAR 17  -->
+    @if(user){
+        <div class="current-user">
+            <button mat-button [matMenuTriggerFor]="menu">{{user.email}}</button>
+            <button mat-mini-fab color="primary" [matMenuTriggerFor]="menu">
+                <mat-icon>account_circle</mat-icon>
+            </button>
+        </div>
+    }
+     <!-- NOVA SINTAXE DAS DIRETIVAS ESTRUTURAIS ANGULAR 17 -->
+    <mat-menu #menu>
+        <button mat-menu-item (click)="logout()">Logout</button>
+    </mat-menu>
+  </mat-toolbar>

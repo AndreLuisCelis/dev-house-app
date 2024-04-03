@@ -18,7 +18,7 @@
                     <p>
                         <mat-form-field appearance="outline">
                             <mat-label>Preço</mat-label>
-                            <input matInput placeholder="Preço" formControlName='price'>
+                            <input matInput placeholder="Preço" formControlName='price' type="number">
                             <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
                             <!-- <mat-hint>Hint</mat-hint> -->
                         </mat-form-field>
@@ -35,18 +35,21 @@
     
                     <p>
                         <button type="button" mat-button (click)="fileInput.click()">Adicionar Imagem</button>
-                        <input hidden (change)="onFileSelected($event)" #fileInput type="file" accept=".jpg,.png">
-                        <span class="file-name">{{selectedFile?.name}}</span>
+                        <input hidden (change)="onFileSelectedAdd($event)" #fileInput type="file" accept=".jpg,.png">
                     </p>
-    
+                    <p>
+                        <span class="file-name">{{selectedFileAdd?.name}}</span>
+                        <img [src]="srcPreviewAdd" alt="" width="100%">
+
+                    </p>
                 </form>
             </mat-card-content>
             <mat-card-actions>
                 <button mat-raised-button (click)="addHouse()">Cadastrar House</button>
             </mat-card-actions>
         </mat-card>
-    
     </div>
+
     <div class="dashboard">
         <mat-card class="example-card" *ngFor="let house of houses">
             <mat-card-header>
@@ -61,9 +64,60 @@
                  </p>
             </mat-card-content>
             <mat-card-actions>
-                <button mat-raised-button>Editar</button>
+                <button mat-raised-button (click)="editHouse(house)">Editar</button>
+                <button mat-raised-button (click)="deleteHouse(house)">Delete</button>
             </mat-card-actions>
         </mat-card>
     </div>
-    
+
+    <dialog #modalEdit id="dialog-edit" >
+        <div class="include-house">
+            <mat-card class="example-card">
+                <mat-card-header>
+                    <mat-card-title>Editar House</mat-card-title>
+                    <!-- <mat-card-subtitle>add new house</mat-card-subtitle> -->
+                </mat-card-header>
+                <mat-card-content>
+                    <form [formGroup]="formEditHouse">
+                        <p>
+                            <mat-form-field appearance="outline">
+                                <mat-label>Descrição</mat-label>
+                                <input matInput placeholder="Descrição" formControlName='description'>
+                                <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+                            </mat-form-field>
+                        </p>
+        
+                        <p>
+                            <mat-form-field appearance="outline">
+                                <mat-label>Preço</mat-label>
+                                <input matInput placeholder="Preço" formControlName='price' type="number">
+                                <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+                                <!-- <mat-hint>Hint</mat-hint> -->
+                            </mat-form-field>
+                        </p>
+        
+                        <p>
+                            <mat-form-field appearance="outline">
+                                <mat-label>Locação</mat-label>
+                                <input matInput placeholder="Locação" formControlName='location'>
+                                <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+                                <!-- <mat-hint>Hint</mat-hint> -->
+                            </mat-form-field>
+                        </p>
+        
+                        <p>
+                            <button type="button" mat-button (click)="fileInputEdit.click()">Editar Imagem</button>
+                            <input hidden (change)="onFileSelectedEdit($event)" #fileInputEdit type="file" accept=".jpg,.png">
+                            <span class="file-name">{{selectedFileEdit?.name}}</span>
+                            <img [src]="srcPreviewEdit" alt="" width="100%">
+                        </p>
+        
+                    </form>
+                </mat-card-content>
+                <mat-card-actions>
+                    <button mat-raised-button (click)="updateHouse()">Cadastrar House</button>
+                </mat-card-actions>
+            </mat-card>
+        </div>
+      </dialog>
 </div>

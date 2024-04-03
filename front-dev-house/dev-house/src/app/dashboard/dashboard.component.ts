@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, HostListener, ViewChild } from '@angular/core';
 import { DashboardService } from './service/dashboard.service';
 import { House } from '../types/house';
 import { CommonModule } from '@angular/common';
@@ -7,7 +7,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
-import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @Component({
@@ -30,47 +30,151 @@ export class DashboardComponent {
 
   houses: House[] = [];
   form = new FormData();
-  selectedFile: any = null;
+  selectedFileAdd: any = null;
+  selectedFileEdit: any = null;
+  srcPreviewAdd: string | ArrayBuffer ='';
+  srcPreviewEdit: string | ArrayBuffer ='';
+  @ViewChild('modalEdit') private modal?: ElementRef<HTMLDialogElement>
 
   formIncludeHouse = this.formBuilder.group({
-    description: [],
-    price: [],
-    location: [],
-    status: [],
-    thumbnail: []
+    description: [''],
+    price: [''],
+    location: [''],
+    status: [''],
+    thumbnail: ['']
   })
+
+  formEditHouse = this.formBuilder.group({
+    description: [''],
+    price: [''],
+    location: [''],
+    status: [''],
+    thumbnail: [''],
+    id:['']
+  });
+
+  @HostListener('document:mousedown', ['$event'])
+  onGlobalClick(event: any): void {
+    console.log('enet',event.target.id);
+    console.log(!this.elementRef.nativeElement.contains(event.target));
+    if(event.target.id === 'dialog-edit') {
+      this.closeModal();
+    }
+     if (!this.elementRef.nativeElement.contains(event.target)) {
+        // clicked outside => close dropdown list
+     this.closeModal();
+     }
+  }
 
   constructor(
     private service: DashboardService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private elementRef: ElementRef
   ) { }
 
 
   ngOnInit() {
     this.service.dashBoard().subscribe({
-      next: dash => {
-        console.log(dash)
-        this.houses = dash;
+      next: houses => {
+        this.houses = houses;
       }
     })
+    this.modalElement?.addEventListener('click', (event:any) => {
+      console.log(event)
+      if (event.target.id !== 'dialog-edit') {
+        this.closeModal();
+      }
+  });
   }
-  onFileSelected(event: any): void {
-    this.selectedFile = event.target.files[0] ?? null;
-    console.log(this.selectedFile)
+  onFileSelectedAdd(event: any): void {
+    this.selectedFileAdd = event.target.files[0] ?? null;
+    const reader = new FileReader();
+    reader.onloadend = ()=> {
+      this.srcPreviewAdd = reader.result?? ''
+    }
+    reader.readAsDataURL(this.selectedFileAdd);
   }
 
-  addHouse(){
-    const formData = new FormData();
-    formData.append('thumbnail', this.selectedFile);
-    formData.append('description', this.formIncludeHouse.get('description')?.value??'')
-    formData.append('price', this.formIncludeHouse.get('price')?.value??'')
-    formData.append('location', this.formIncludeHouse.get('location')?.value??'')
-    formData.append('status', 'true')
+  onFileSelectedEdit(event: any): void {
+    this.selectedFileEdit = event.target.files[0] ?? null;
+    const reader = new FileReader();
+    reader.onloadend = ()=> {
+      this.srcPreviewEdit = reader.result?? ''
+    }
+    reader.readAsDataURL(this.selectedFileEdit);
+  }
+  
+
+  addHouse(): void {
+    const formData = this.getFormData(this.formIncludeHouse, this.selectedFileAdd)
     this.service.addHouse(formData).subscribe({
       next: newHouse => {
-        console.log('RES',newHouse);
-        this.houses.push(newHouse)
+        this.houses.push(newHouse);
+        this.formIncludeHouse.reset();
+        this.srcPreviewAdd = '';
+        this.selectedFileAdd = null;
       }
     })
+  }
+
+  updateHouse(): void {
+    const formData = this.getFormData(this.formEditHouse, this.selectedFileEdit)
+    this.service.updateHouse(formData, this.formEditHouse.get('id')?.value??'').subscribe({
+      next: updatedHouse => {
+        const index = this.houses.findIndex( house =>  house.id === updatedHouse.id);
+        this.houses[index] = updatedHouse;
+        this.formEditHouse.reset();
+        this.srcPreviewEdit = '';
+        this.closeModal();
+      }
+    })
+  }
+
+  deleteHouse(house: House): void {
+    const payLoadHouseId = {
+      house_id: house.id, ...house
+    }
+    this.service.deleteHouse(payLoadHouseId).subscribe({
+      next: () => {
+        this.houses = this.houses.filter(houseFiltered => houseFiltered.id !== house.id)
+      }
+    })
+  }
+
+  private get modalElement() {
+    return this.modal?.nativeElement as HTMLDialogElement;
+  }
+
+  showModal() {
+    this.modalElement.showModal();
+  }
+
+  closeModal() {
+    this.modalElement.close();
+  }
+
+  editHouse(house: House): void {
+    fetch(house.thumbnail_url).then(res => {
+      return res.blob();
+    }).then(blob => {
+      this.selectedFileEdit = new File([blob], '');
+      this.formEditHouse.patchValue(house as any);
+      const reader = new FileReader();
+      reader.onloadend = ()=> {
+      this.srcPreviewEdit = reader.result?? ''
+    }
+    reader.readAsDataURL(this.selectedFileEdit);
+      this.showModal()
+    })
+  }
+
+  getFormData(formGroup: FormGroup, file: any): FormData {
+    const formData = new FormData();
+    formData.append('thumbnail', file);
+    formData.append('description', formGroup.get('description')?.value ?? '')
+    formData.append('price', formGroup.get('price')?.value ?? '')
+    formData.append('location', formGroup.get('location')?.value ?? '')
+    formData.append('status', 'true');
+    return formData;
   }
 }
