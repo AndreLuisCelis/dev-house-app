@@ -121,7 +121,7 @@ export class DashboardComponent {
     const formData = this.getFormData(this.formEditHouse, this.selectedFileEdit)
     this.service.updateHouse(formData, this.formEditHouse.get('id')?.value??'').subscribe({
       next: updatedHouse => {
-        const index = this.houses.findIndex( house =>  house.id === updatedHouse.id);
+        const index = this.houses.findIndex( house =>  house?.id === updatedHouse?.id);
         this.houses[index] = updatedHouse;
         this.formEditHouse.reset();
         this.srcPreviewEdit = '';

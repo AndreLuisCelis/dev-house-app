@@ -5,6 +5,7 @@ import { CommonModule, DOCUMENT } from '@angular/common';
 import { HeaderComponent } from './shared/header/header.component';
 import { SessionService } from './session/service/session.service';
 import { User } from './types/user';
+import { environment } from '../environments/environment.development';
 
 @Component({
   selector: 'app-root',
@@ -16,6 +17,7 @@ import { User } from './types/user';
   styleUrl: './app.component.scss'
 })
 export class AppComponent implements OnDestroy {
+  env = environment
   title = 'dev-house';
   userId = '';
   currentUserObservable$ = this.sessionService.currentUser$;
@@ -29,6 +31,7 @@ export class AppComponent implements OnDestroy {
   ){ }
 
   ngOnInit(): void{
+    console.log('env',this.env)
     // PARA VERIFICAR SE ESTA NO CLIENTE(BROWSER) E POSSUI LOCALSTORAGE
     const localStorage = this.document.defaultView?.localStorage;
     if(localStorage ) {
@@ -40,6 +43,8 @@ export class AppComponent implements OnDestroy {
     } else {
       this.router.navigateByUrl('')
     } 
+
+
   }
 
   logout(): void {

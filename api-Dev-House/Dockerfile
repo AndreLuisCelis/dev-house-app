@@ -16,7 +16,8 @@ RUN yarn install
 COPY . .
 
 # Conexão com mongodb Atlas na nuvem 
-# ENV MONGO_URI="mongodb+srv://andreluiscelis:501782@cluster0.qkqvv8i.mongodb.net/devHouse?retryWrites=true&w=majority&appName=Cluster0"
+ENV MONGO_URI="mongodb://mongo:27017/devHouse"
+ENV API_PORT=3333
 
 # Expõe a porta 3333 para acessar a API
 EXPOSE 3333

@@ -38,8 +38,13 @@
                         <input hidden (change)="onFileSelectedAdd($event)" #fileInput type="file" accept=".jpg,.png">
                     </p>
                     <p>
-                        <span class="file-name">{{selectedFileAdd?.name}}</span>
-                        <img [src]="srcPreviewAdd" alt="" width="100%">
+                        <span class="file-name">
+                            {{selectedFileAdd?.name?.length>10 ?
+                            (selectedFileAdd?.name | slice: 0: 10) + '-'+
+                            (selectedFileAdd?.name | slice: -4)
+                            : selectedFileAdd?.name }}
+                        </span>
+                        <img [src]="srcPreviewAdd">
 
                     </p>
                 </form>
@@ -108,8 +113,13 @@
                         <p>
                             <button type="button" mat-button (click)="fileInputEdit.click()">Editar Imagem</button>
                             <input hidden (change)="onFileSelectedEdit($event)" #fileInputEdit type="file" accept=".jpg,.png">
-                            <span class="file-name">{{selectedFileEdit?.name}}</span>
-                            <img [src]="srcPreviewEdit" alt="" width="100%">
+                            <span class="file-name">
+                            {{selectedFileEdit?.name?.length>10 ?
+                            (selectedFileEdit?.name | slice: 0: 10) + '-'+
+                            (selectedFileEdit?.name | slice: -4)
+                            : selectedFileEdit?.name }}
+                        </span>
+                            <img [src]="srcPreviewEdit">
                         </p>
         
                     </form>

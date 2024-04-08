@@ -1,4 +1,8 @@
 import { Schema, model } from 'mongoose';
+import dotenv from 'dotenv';
+dotenv.config();
+
+
 
 const HouseSchema = new Schema({
   thumbnail: String,
@@ -15,9 +19,9 @@ const HouseSchema = new Schema({
     virtuals: true
   }
 });
-
+const api_port = process.env.API_PORT ?? '3333';
 HouseSchema.virtual('thumbnail_url').get(function(){
-  return `http://localhost:3333/files/${this.thumbnail}`;
+  return `http://localhost:${api_port}/files/${this.thumbnail}`;
 })
 
 export default model('House', HouseSchema);
