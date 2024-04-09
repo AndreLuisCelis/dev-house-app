@@ -7,6 +7,8 @@ Na aplicação é possivel fazer as operações básicas de um CRUD e também é
 
 Também será possível adicionar uma imagem ao cadastrar Houses.
 
+A Api foi desenvolvida seguindo as lições deste curso da Udemy: https://www.udemy.com/course/curso-nodejs/?couponCode=ST8MT40924
+
 ----------------------------------------
 
 ![imagem do projeto](/front-dev-house/dev-house/src/assets/login.png)
@@ -16,6 +18,8 @@ Também será possível adicionar uma imagem ao cadastrar Houses.
 ----------------------------------------------------
 
 ![imagem do projeto](/front-dev-house/dev-house/src/assets/edicao.png)
+
+A Api foi desenvolvida seguindo as lições deste curso da Udemy: https://www.udemy.com/course/curso-nodejs/?couponCode=ST8MT40924
 
 ## Tecnologias Utilizadas
 
