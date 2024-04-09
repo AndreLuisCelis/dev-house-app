@@ -1,7 +1,9 @@
 
 # Dev House App
 
-Este é um projeto para desenvolver um aplicativo web para gerenciamento de casas de desenvolvimento, baseado no layout fornecido no Figma.
+Este é um projeto simples que permite um usuário se cadastrar na aplicação e após seu cadastro é possivel incluir houses para locação.
+Na aplicação é possivel fazer as operações básicas de um CRUD e também é possivel fazer minimamente uma atenticação de usuário.
+Também é possível adicionar imagens ao cadastrar Houses.
 
 ## Tecnologias Utilizadas
 
