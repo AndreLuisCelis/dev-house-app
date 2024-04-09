@@ -15,7 +15,7 @@ Também será possível adicionar uma imagem ao cadastrar Houses.
 ![imagem do projeto](/front-dev-house/dev-house/src/assets/cadastro.png)
 ----------------------------------------------------
 
-![imagem do projeto](//front-dev-house/dev-house/src/assets/edicao.png)
+![imagem do projeto](/front-dev-house/dev-house/src/assets/edicao.png)
 
 ## Tecnologias Utilizadas
 
