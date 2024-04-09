@@ -1,9 +1,11 @@
 
 # Dev House App
 
-Este é um projeto simples que permite um usuário se cadastrar na aplicação e após seu cadastro é possivel incluir houses para locação.
+Este é um simples projeto que consiste em um sistema que permite ao usuário cadastrar-se na aplicação e após seu cadastro será possível incluir houses para locação.
+
 Na aplicação é possivel fazer as operações básicas de um CRUD e também é possivel fazer minimamente uma atenticação de usuário.
-Também é possível adicionar imagens ao cadastrar Houses.
+
+Também será possível adicionar uma imagem ao cadastrar Houses.
 
 ## Tecnologias Utilizadas
 
