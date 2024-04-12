@@ -18,7 +18,7 @@ import { environment } from '../environments/environment.development';
 })
 export class AppComponent implements OnDestroy {
   env = environment
-  title = 'dev-house';
+  title = process.env["API_KEY"] || 'DEF_A';
   userId = '';
   currentUserObservable$ = this.sessionService.currentUser$;
   currentUser: User | null = null;
