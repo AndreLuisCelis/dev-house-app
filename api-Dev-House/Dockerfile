@@ -17,7 +17,6 @@ COPY . .
 
 # Conexão com mongodb Atlas na nuvem 
 ENV MONGO_URI="mongodb://mongo:27017/devHouse"
-ENV API_PORT=3333
 
 # Expõe a porta 3333 para acessar a API
 EXPOSE 3333

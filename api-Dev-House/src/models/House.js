@@ -19,9 +19,9 @@ const HouseSchema = new Schema({
     virtuals: true
   }
 });
-const api_port = process.env.API_PORT ?? '3333';
+const api_url = process.env.API_URL ?? 'http://localhost:3333/';
 HouseSchema.virtual('thumbnail_url').get(function(){
-  return `http://localhost:${api_port}/files/${this.thumbnail}`;
+  return `${api_url}files/${this.thumbnail}`;
 })
 
 export default model('House', HouseSchema);

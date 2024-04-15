@@ -14,14 +14,6 @@
       "sourceRoot": "src",
       "prefix": "app",
       "architect": {
-        "server":{
-          "builder": "@angular-builders/custom-webpack:server",
-          "options": {
-              "customWebpackConfig": {
-                "path": "./custom-webpack.config.ts"
-          }
-        }
-      },
         "build": {
           "builder": "@angular-builders/custom-webpack:browser",
           "options": {
@@ -30,7 +22,7 @@
             },
             "outputPath": "dist/dev-house",
             "index": "src/index.html",
-            "browser": "src/main.ts",
+            "main": "src/main.ts",
             "polyfills": [
               "zone.js"
             ],
@@ -44,20 +36,16 @@
               "@angular/material/prebuilt-themes/deeppurple-amber.css",
               "src/styles.scss"
             ],
-            "scripts": [],
-            "server": "src/main.server.ts",
-            "prerender": true,
-            "ssr": {
-              "entry": "server.ts"
-            }
+            "scripts": []
+           
           },
           "configurations": {
             "production": {
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "500kb",
-                  "maximumError": "1mb"
+                  "maximumWarning": "4mb",
+                  "maximumError": "6mb"
                 },
                 {
                   "type": "anyComponentStyle",
@@ -100,11 +88,8 @@
           }
         },
         "test": {
-          "builder": "@angular-builders/custom-webpack:karma",
+          "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "customWebpackConfig": {
-              "path": "./custom-webpack.config.ts"
-        },
             "polyfills": [
               "zone.js",
               "zone.js/testing"

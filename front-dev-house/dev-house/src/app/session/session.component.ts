@@ -24,7 +24,7 @@ export class SessionComponent {
   ) { }
 
   user = new FormControl();
-  title = process.env["API_KEY"] || 'DEF_A';
+  title = process.env["API_URL"] || 'DEF_A';
 
   ngOnInit() {
   }
