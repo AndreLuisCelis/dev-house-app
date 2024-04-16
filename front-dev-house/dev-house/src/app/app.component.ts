@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, Inject, OnDestroy } from '@angular/core';
+import { Component, Inject, OnDestroy } from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';
 import { SessionComponent } from './session/session.component';
 import { CommonModule, DOCUMENT } from '@angular/common';
@@ -6,12 +6,14 @@ import { HeaderComponent } from './shared/header/header.component';
 import { SessionService } from './session/service/session.service';
 import { User } from './types/user';
 import { environment } from '../environments/environment.development';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, SessionComponent, HeaderComponent, CommonModule],
+  imports: [RouterOutlet, SessionComponent, HeaderComponent, CommonModule,NgxSpinnerModule],
   template: `
+  <ngx-spinner type="ball-scale-multiple"></ngx-spinner>
   <app-header [user]="currentUserObservable$ | async"></app-header>
   <router-outlet></router-outlet>`,
   styleUrl: './app.component.scss'
@@ -27,7 +29,7 @@ export class AppComponent implements OnDestroy {
     // É PRECISO PARA IDENTIFICAR SE É O CLIENTE (BROWSER) OU SE É O SERVER
     // SERVER NÃO TEM LOCALSTORAGE
     @Inject(DOCUMENT) private document: Document,
-    private sessionService: SessionService
+    private sessionService: SessionService,
   ){ }
 
   ngOnInit(): void{
