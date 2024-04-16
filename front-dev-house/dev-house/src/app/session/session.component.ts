@@ -9,6 +9,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { User } from '../types/user';
 import { Router } from '@angular/router';
+import { environment } from '../../environments/environment.development';
 
 @Component({
   selector: 'app-session',
@@ -24,7 +25,7 @@ export class SessionComponent {
   ) { }
 
   user = new FormControl();
-  title = process.env["API_URL"] || 'DEF_A';
+  envApiUrl = process.env["API_URL"] || environment.baseUrl;
 
   ngOnInit() {
   }
