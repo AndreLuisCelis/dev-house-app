@@ -2,13 +2,21 @@ FROM node:18-alpine AS build
 WORKDIR /app
 
 COPY . .
+# ENV API_URL=localhost:3333/
 RUN npm install
-RUN npm run build
+# RUN npm run build
+
+EXPOSE 4200
+
+# Comando para iniciar a aplicação
+CMD ["npm","start"]
+
+
 # Serve Application using Nginx Server
-FROM nginx:alpine
-COPY ./nginx.conf /etc/nginx/conf.d/default.conf 
-COPY --from=build /app/dist/dev-house/ /usr/share/nginx/html
-EXPOSE 80
+# FROM nginx:alpine
+# COPY ./nginx.conf /etc/nginx/conf.d/default.conf 
+# COPY --from=build /app/dist/dev-house/ /usr/share/nginx/html
+# EXPOSE 80
 
 
 
