@@ -1,7 +1,7 @@
 
 # Dev House App
 
-Este  consiste em um sistema que permite ao usuário cadastrar-se na aplicação e após seu cadastro será possível incluir houses para locação.
+Este app consiste em um sistema que permite ao usuário cadastrar-se na aplicação e após seu cadastro será possível incluir houses para locação.
 
 Na aplicação é possivel fazer as operações básicas de um CRUD e também é possivel fazer uma atenticação de usuário simples.
 
