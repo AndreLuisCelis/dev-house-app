@@ -19,7 +19,7 @@ export class HeaderComponent {
 
   constructor(private sessionService: SessionService){}
 
-  logout(): void {
-    this.sessionService.logout();
+  logout(): Promise<boolean> {
+   return this.sessionService.logout();
   }
 }

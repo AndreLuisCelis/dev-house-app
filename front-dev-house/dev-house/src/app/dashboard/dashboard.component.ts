@@ -34,7 +34,7 @@ export class DashboardComponent {
   selectedFileEdit: any = null;
   srcPreviewAdd: string | ArrayBuffer ='';
   srcPreviewEdit: string | ArrayBuffer ='';
-  @ViewChild('modalEdit') private modal?: ElementRef<HTMLDialogElement>
+  @ViewChild('modalEdit') private modal?: ElementRef<HTMLDialogElement>;
 
   formIncludeHouse = this.formBuilder.group({
     description: [''],
@@ -86,26 +86,34 @@ export class DashboardComponent {
       }
   });
   }
-  onFileSelectedAdd(event: any): void {
+  onFileSelectedAdd(event: any) {
+    if(!event){
+      return
+    }
     this.selectedFileAdd = event.target.files[0] ?? null;
     const reader = new FileReader();
     reader.onloadend = ()=> {
       this.srcPreviewAdd = reader.result?? ''
     }
     reader.readAsDataURL(this.selectedFileAdd);
+    return reader;
   }
 
-  onFileSelectedEdit(event: any): void {
+  onFileSelectedEdit(event: any) {
+    if(!event){
+      return ;
+    }
     this.selectedFileEdit = event.target.files[0] ?? null;
     const reader = new FileReader();
     reader.onloadend = ()=> {
       this.srcPreviewEdit = reader.result?? ''
     }
     reader.readAsDataURL(this.selectedFileEdit);
+    return reader;
   }
   
 
-  addHouse(): void {
+  addHouse(): FormData  {
     const formData = this.getFormData(this.formIncludeHouse, this.selectedFileAdd)
     this.service.addHouse(formData).subscribe({
       next: newHouse => {
@@ -115,9 +123,10 @@ export class DashboardComponent {
         this.selectedFileAdd = null;
       }
     })
+    return formData
   }
 
-  updateHouse(): void {
+  updateHouse(): FormData {
     const formData = this.getFormData(this.formEditHouse, this.selectedFileEdit)
     this.service.updateHouse(formData, this.formEditHouse.get('id')?.value??'').subscribe({
       next: updatedHouse => {
@@ -128,9 +137,10 @@ export class DashboardComponent {
         this.closeModal();
       }
     })
+    return formData
   }
 
-  deleteHouse(house: House): void {
+  deleteHouse(house: House): House {
     const payLoadHouseId = {
       house_id: house.id, ...house
     }
@@ -139,21 +149,24 @@ export class DashboardComponent {
         this.houses = this.houses.filter(houseFiltered => houseFiltered.id !== house.id)
       }
     })
+    return payLoadHouseId;
   }
 
   private get modalElement() {
     return this.modal?.nativeElement as HTMLDialogElement;
   }
 
-  showModal() {
+  showModal(): boolean {
     this.modalElement.showModal();
+     return this.modalElement.checkVisibility();
   }
 
   closeModal() {
     this.modalElement.close();
+    return this.modalElement.checkVisibility();
   }
 
-  editHouse(house: House): void {
+  editHouse(house: House): House {
     fetch(house.thumbnail_url).then(res => {
       return res.blob();
     }).then(blob => {
@@ -166,6 +179,7 @@ export class DashboardComponent {
     reader.readAsDataURL(this.selectedFileEdit);
       this.showModal()
     })
+    return house;
   }
 
   getFormData(formGroup: FormGroup, file: any): FormData {

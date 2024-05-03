@@ -29,18 +29,18 @@ export class SessionComponent {
 
   ngOnInit() {
   }
-  login(): void{
+  login(): User{
     if(this.user.value){
       const user: User = {
         email: this.user.value
       }
       this.service.login(user).subscribe({
         next: user => {
-          console.log('response user', user);
           this.service.setUser(user);
           this.router.navigateByUrl('dashboard');
         }
       })
     }
+    return this.user.value;
   }
 }

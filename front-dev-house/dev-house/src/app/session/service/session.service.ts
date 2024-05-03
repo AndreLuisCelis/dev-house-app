@@ -22,12 +22,13 @@ export class SessionService {
     return this.http.post<User>(`${this.apiurl}sessions`, user)
   }
 
-  setUser(user: User): void {
+  setUser(user: User): User {
     if(user._id){
       localStorage.setItem('user_id',user._id);
       localStorage.setItem('user_email', user.email)
       this.currentUser$.next(user);
     }
+    return user
   }
   getUserId(){
     return localStorage.getItem('user_id');
@@ -44,10 +45,10 @@ export class SessionService {
     return currentUser
   }
 
-  logout(): void {
+ async logout(): Promise<boolean> {
     localStorage.removeItem('user_id');
     localStorage.removeItem('user_email');
     this.currentUser$.next(null);
-    this.router.navigateByUrl('');
+    return this.router.navigateByUrl('');
   }
 }
