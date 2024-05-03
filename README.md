@@ -1,11 +1,11 @@
 
 # Dev House App
 
-Este é um simples projeto que consiste em um sistema que permite ao usuário cadastrar-se na aplicação e após seu cadastro será possível incluir houses para locação.
+Este app consiste em um sistema que permite ao usuário cadastrar-se na aplicação e após seu cadastro será possível incluir houses para locação.
 
-Na aplicação é possivel fazer as operações básicas de um CRUD e também é possivel fazer minimamente uma atenticação de usuário.
+Na aplicação é possivel fazer as operações básicas de um CRUD e também é possivel fazer uma atenticação de usuário simples.
 
-Também será possível adicionar uma imagem ao cadastrar Houses.
+Também é possível adicionar uma imagem ao fazer um cadastro.
 
 A Api foi desenvolvida seguindo as lições deste curso da Udemy: https://www.udemy.com/course/curso-nodejs/?couponCode=ST8MT40924
 
