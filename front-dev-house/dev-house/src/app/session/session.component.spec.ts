@@ -1,5 +1,4 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { SessionComponent } from './session.component';
 import { HttpClientTestingModule, provideHttpClientTesting } from '@angular/common/http/testing';
 import { provideAnimations } from '@angular/platform-browser/animations';
@@ -33,4 +32,16 @@ describe('SessionComponent', () => {
     const userLogged = component.login();
     expect(userLogged).toEqual(user);
   });
+
+  it('email valid ', () => {
+    component.user.setValue('testeteste@email');
+      const valid = component.user.valid;
+      expect(valid).toEqual(true);
+    });
+
+  it('email invalid ', () => {
+    component.user.setValue('rr');
+      const invalid = component.user.invalid;
+      expect(invalid).toEqual(true);
+    });  
 });

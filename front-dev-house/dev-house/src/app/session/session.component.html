@@ -10,7 +10,13 @@
             <form class="example-form">
                 <mat-form-field class="example-full-width">
                   <mat-label>User</mat-label>
-                  <input matInput placeholder="Ex. user@eamil.com" [formControl]="user">
+                  <input matInput placeholder="Ex. user@eamil.com" [formControl]="user" (keyup.enter)="login()">
+                  @if (user.hasError('email') && !user.hasError('required')) {
+                    <mat-error>Please enter a valid email address</mat-error>
+                  }
+                  @if (user.hasError('required')) {
+                    <mat-error>Email is <strong>required</strong></mat-error>
+                  }
                 </mat-form-field>
               </form>
 

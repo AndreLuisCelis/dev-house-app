@@ -3,7 +3,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { FormControl, FormsModule } from '@angular/forms';
+import { FormControl, FormsModule, Validators } from '@angular/forms';
 import { SessionService } from './service/session.service';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -28,9 +28,10 @@ export class SessionComponent {
   envApiUrl = process.env["API_URL"] || environment.baseUrl;
 
   ngOnInit() {
+    this.user.setValidators([Validators.email, Validators.required]);
   }
-  login(): User{
-    if(this.user.value){
+  login(): User {
+    if(this.user.value && this.user.valid){
       const user: User = {
         email: this.user.value
       }
@@ -40,6 +41,8 @@ export class SessionComponent {
           this.router.navigateByUrl('dashboard');
         }
       })
+    } else {
+      this.user.markAllAsTouched();
     }
     return this.user.value;
   }
