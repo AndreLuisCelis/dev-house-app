@@ -7,14 +7,22 @@ import { SessionService } from './session/service/session.service';
 import { User } from './types/user';
 import { environment } from '../environments/environment.development';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { NavigationComponent } from './shared/navigation/navigation.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, SessionComponent, HeaderComponent, CommonModule,NgxSpinnerModule],
+  imports: [
+    RouterOutlet,
+    SessionComponent,
+    HeaderComponent,
+    CommonModule,
+    NgxSpinnerModule,
+    NavigationComponent
+  ],
   template: `
   <ngx-spinner type="ball-scale-multiple"></ngx-spinner>
-  <app-header [user]="currentUserObservable$ | async"></app-header>
+  <app-navigation [user]="currentUserObservable$ | async"></app-navigation>
   <router-outlet></router-outlet>`,
   styleUrl: './app.component.scss'
 })
@@ -30,32 +38,32 @@ export class AppComponent implements OnDestroy {
     // SERVER NÃO TEM LOCALSTORAGE
     @Inject(DOCUMENT) private document: Document,
     private sessionService: SessionService,
-  ){ }
+  ) { }
 
-  ngOnInit(): void{
-    console.log('env',this.env)
+  ngOnInit(): void {
+    console.log('env', this.env)
     // PARA VERIFICAR SE ESTA NO CLIENTE(BROWSER) E POSSUI LOCALSTORAGE
     const localStorage = this.document.defaultView?.localStorage;
-    if(localStorage ) {
-      this.userId = localStorage.getItem('user_id')?? ''
+    if (localStorage) {
+      this.userId = localStorage.getItem('user_id') ?? ''
       this.sessionService.setUser(this.sessionService.getCurrentUser());
     }
-    if(this.userId) {
+    if (this.userId) {
       this.router.navigateByUrl('dashboard')
     } else {
       this.router.navigateByUrl('')
-    } 
+    }
 
 
   }
 
   logout(): void {
     const localStorage = this.document.defaultView?.localStorage;
-    if(localStorage) {
+    if (localStorage) {
       this.sessionService.logout();
     }
   }
-  ngOnDestroy(): void{
+  ngOnDestroy(): void {
     this.logout();
   }
 }

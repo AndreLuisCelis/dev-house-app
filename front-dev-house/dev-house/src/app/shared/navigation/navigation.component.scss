@@ -1,0 +1,46 @@
+.sidenav-container {
+  height: 100%;
+}
+
+.sidenav {
+  width: 200px;
+
+  #btn-recue-sidnav {
+    padding: 5px;
+    cursor: pointer;
+
+    &:hover {
+      filter: opacity(50%);
+    }
+  }
+
+  .avatar {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    padding-top: 30px;
+    img {
+      aspect-ratio: 1 / 1;
+      width: 80%;
+      border-radius: 50%;
+    }
+    figcaption{
+      margin: 10px;
+      text-align: center;
+    }
+  }
+}
+
+
+
+.mat-toolbar.mat-primary {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+.example-spacer {
+  flex: 1 1 auto !important;
+}

@@ -1,10 +1,21 @@
-.example-spacer {
-    flex: 1 1 auto;
+.header {
+  display: flex;
+  flex-wrap: wrap;
+  .example-spacer {
+    flex: 1 1 auto !important;
   }
   .current-user {
     display: flex;
+    flex-wrap: wrap;
     gap: 5px;
     align-items: center;
     margin-right: 20px;
     margin-bottom: -8px;
   }
+
+  @media only screen and (max-width: 760px) {
+    #user-email-header{
+      display: none;
+    }
+}
+}

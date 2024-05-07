@@ -3,15 +3,17 @@
     flex-wrap: wrap;
     .dashboard {
         margin: 20px 30px;
+        margin-right: 0px;
         border-radius: 5px;
         padding: 5px;
-        width: 65%;
+        width: calc(100% - 330px);
         display: flex;
         gap: 20px;
         flex-wrap: wrap;
-        height: calc(100vh - 100px);
+        height: calc(100vh - 120px);
         background-color: #fafafa;
         overflow-y: scroll;
+        align-items: baseline;
     }
     
     .example-card {
@@ -19,6 +21,7 @@
         img {
             margin: 10px;
             max-width: 100% !important;
+            border-radius: 10px;
         }
       }
       
@@ -52,4 +55,15 @@
           backdrop-filter: blur(1px);
         }
       }
+
+      @media only screen and (max-width: 760px) {
+        .dashboard{
+          width: 100%;
+          justify-content: center;
+        }
+        .include-house{
+          justify-content: center;
+          width: 100%;
+        }
+    }
 }
