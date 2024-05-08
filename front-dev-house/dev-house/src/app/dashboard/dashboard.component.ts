@@ -117,7 +117,7 @@ export class DashboardComponent {
     const formData = this.getFormData(this.formIncludeHouse, this.selectedFileAdd)
     this.service.addHouse(formData).subscribe({
       next: newHouse => {
-        this.houses.push(newHouse);
+        this.houses.unshift(newHouse);
         this.formIncludeHouse.reset();
         this.srcPreviewAdd = '';
         this.selectedFileAdd = null;
