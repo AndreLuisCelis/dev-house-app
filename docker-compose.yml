@@ -10,7 +10,7 @@ services:
     # environment:
     #   - API_URL=http://ec2-52-55-174-203.compute-1.amazonaws.com:8080/
     ports:
-      - "4000:4200"
+      - "4000:80"
     networks:
       - app-network
 
