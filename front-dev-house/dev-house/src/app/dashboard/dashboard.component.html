@@ -59,13 +59,17 @@
         <mat-card class="example-card" *ngFor="let house of houses">
             <mat-card-header>
                 <div mat-card-avatar class="example-header-image"></div>
-                <mat-card-title>{{house.description}}</mat-card-title>
-                <mat-card-subtitle>{{house.location}}</mat-card-subtitle>
+                <mat-card-title>
+                    {{house.description.length>40? house.description.slice(0,35)+' ...': house.description}}
+                </mat-card-title>
+                <mat-card-subtitle>
+                    {{house.location.length>80? house.location.slice(0,80)+'...':house.location}}
+                </mat-card-subtitle>
             </mat-card-header>
             <img mat-card-image src="{{house.thumbnail_url}}">
             <mat-card-content>
                  <p>
-                    <strong>preço:</strong> {{house.price}}
+                    <strong>Preço:</strong> {{house.price}}
                  </p>
             </mat-card-content>
             <mat-card-actions>
