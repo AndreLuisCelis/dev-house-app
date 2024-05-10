@@ -10,14 +10,17 @@ const HouseSchema = new Schema({
   price: Number,
   location: String,
   status: Boolean,
+  date : { type : Date, default: Date.now },
   user:{
     type: Schema.Types.ObjectId,
     ref: 'User'
-  }
-}, {
+  },
+  
+},{
   toJSON: {
     virtuals: true
-  }
+  },
+  timestamps: true
 });
 const api_url = process.env.API_URL ?? 'http://localhost:3333/';
 HouseSchema.virtual('thumbnail_url').get(function(){
