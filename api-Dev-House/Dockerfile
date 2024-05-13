@@ -15,7 +15,7 @@ RUN yarn install
 # Copia todo o código fonte para o diretório de trabalho
 COPY . .
 
-# Conexão com mongodb Atlas na nuvem 
+# Conexão com mongodb 
 ENV MONGO_URI="mongodb://mongo:27017/devHouse"
 
 # Expõe a porta 3333 para acessar a API

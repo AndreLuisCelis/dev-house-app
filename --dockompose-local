@@ -8,7 +8,7 @@ services:
       context: ./front-dev-house/dev-house
       dockerfile: Dockerfile
     environment:
-       - API_URL=http://app-elastic-env.eba-anym2kbb.us-east-1.elasticbeanstalk.com:8080/
+       - API_URL=http://localhost:3333/
     ports:
       - "80:80"
     networks:
@@ -21,9 +21,9 @@ services:
       context: ./api-Dev-House
       dockerfile: Dockerfile
     environment:
-       - API_URL=http://app-elastic-env.eba-anym2kbb.us-east-1.elasticbeanstalk.com:8080/
+       - API_URL=http://localhost:3333/
     ports:
-      - "8080:3333"
+      - "3333:3333"
     volumes:
       - uploads:/user/uploads
     networks:

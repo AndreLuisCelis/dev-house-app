@@ -23,6 +23,7 @@ const HouseSchema = new Schema({
   timestamps: true
 });
 const api_url = process.env.API_URL ?? 'http://localhost:3333/';
+console.log('api_url',api_url);
 HouseSchema.virtual('thumbnail_url').get(function(){
   return `${api_url}files/${this.thumbnail}`;
 })
