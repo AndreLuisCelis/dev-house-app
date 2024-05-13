@@ -7,8 +7,8 @@ services:
     build:
       context: ./front-dev-house/dev-house
       dockerfile: Dockerfile
-    # environment:
-    #   - API_URL=http://ec2-52-55-174-203.compute-1.amazonaws.com:8080/
+    environment:
+       - API_URL=http://app-elastic-env.eba-anym2kbb.us-east-1.elasticbeanstalk.com:8080/
     ports:
       - "80:80"
     networks:
@@ -20,6 +20,8 @@ services:
     build:
       context: ./api-Dev-House
       dockerfile: Dockerfile
+    environment:
+       - API_URL=http://app-elastic-env.eba-anym2kbb.us-east-1.elasticbeanstalk.com:8080/
     ports:
       - "3333:3333"
     volumes:
