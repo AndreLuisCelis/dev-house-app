@@ -4,11 +4,12 @@ services:
   front-dev-house:
     depends_on:
       - api-dev-house
+
     build:
       context: ./front-dev-house/dev-house
       dockerfile: Dockerfile
     environment:
-      - API_URL=http://app-elastic-env.eba-anym2kbb.us-east-1.elasticbeanstalk.com:8080/
+      - API_URL=http://app-elastic-env.eba-anym2kbb.us-east-1.elasticbeanstalk.com:8080/  
     ports:
       - "80:80"
     networks:
