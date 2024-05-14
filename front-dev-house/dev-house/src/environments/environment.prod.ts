@@ -1,4 +1,4 @@
 export const environment = {
     production: true,
-    baseUrl: process.env["API_URL"] || 'http://localhost:3333/'
+    baseUrl: process.env["API_URL"] 
 };
