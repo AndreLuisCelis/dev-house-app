@@ -2,8 +2,8 @@ FROM node:18-alpine AS build
 WORKDIR /app
 
 COPY . .
-## FOI PRECISO PASSAR A VARIAVEL DE AMBIENTE AQUI POIS ATRAVÉS DO COMPOSE O ANGULAR NÃO ESTA CAPTURANDO
-ENV API_URL=http://app-elastic-env.eba-anym2kbb.us-east-1.elasticbeanstalk.com:8080/
+ARG API_URL
+ENV API_URL=${API_URL}
 
 RUN npm install
 

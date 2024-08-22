@@ -5,6 +5,8 @@ services:
     build:
       context: ./front-dev-house/dev-house
       dockerfile: Dockerfile
+      args:
+        API_URL: http://api-dev-house:3333/
     environment:
       - API_URL=http://localhost:3333/
     ports:
